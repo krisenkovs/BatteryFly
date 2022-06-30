@@ -1,7 +1,5 @@
-import Header from "./Header";
+import Header from './Header';
 
 export default function Home() {
-  return (
-    <Header title='Home'/>
-  );
+  return <Header title="Главная" />;
 }

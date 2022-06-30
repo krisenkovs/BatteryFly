@@ -3,34 +3,42 @@ import Header from './Header';
 import SlidersIcon from './SlidersIcon';
 import BellIcon from './BellIcon';
 import CaretRightIcon from './CaretRightIcon';
+import { Route, Routes, useNavigate } from 'react-router-native';
+import Help from './Help';
 
 const DATA = [
   {
-    id: '1',
+    id: 'history',
     title: 'История заправок',
   },
   {
-    id: '2',
+    id: 'model',
     title: 'Tesla Model X',
   },
   {
-    id: '3',
+    id: 'payment',
     title: 'Платежная информация',
   },
   {
-    id: '4',
+    id: 'about',
     title: 'О приложении',
   },
   {
-    id: '5',
+    id: 'help',
     title: 'Помощь',
   },
 ];
 
-export default function Profile() {
+function ProfileHome() {
+  const navigate = useNavigate();
+
+  function handlePress(id: string) {
+    navigate('help');
+  }
+
   return (
     <View>
-      <Header title="Profile" showBackButton />
+      <Header title="Профиль" showBackButton />
       <View style={styles.content}>
         <View style={styles.user}>
           <View style={styles.userAvatar} />
@@ -47,7 +55,7 @@ export default function Profile() {
           <FlatList
             data={DATA}
             renderItem={({ item }) => (
-              <TouchableOpacity style={styles.listItem}>
+              <TouchableOpacity style={styles.listItem} onPress={() => handlePress(item?.id)}>
                 <Text style={styles.listItemTitle}>{item.title}</Text>
                 <CaretRightIcon />
               </TouchableOpacity>
@@ -57,6 +65,15 @@ export default function Profile() {
         </View>
       </View>
     </View>
+  );
+}
+
+export default function Profile() {
+  return (
+    <Routes>
+      <Route index element={<ProfileHome />} />
+      <Route path="help" element={<Help />} />
+    </Routes>
   );
 }
 

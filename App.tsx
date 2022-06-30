@@ -1,8 +1,9 @@
-import { StyleSheet } from 'react-native';
 import Profile from './Profile';
 import { NativeRouter, Route, Routes } from 'react-router-native';
 import Home from './Home';
 import { useFonts } from 'expo-font';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -23,9 +24,10 @@ export default function App() {
   return (
     <NativeRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route index element={<Home />} />
+        <Route path="profile/*" element={<Profile />} />
       </Routes>
+      <StatusBar hidden />
     </NativeRouter>
   );
 }
