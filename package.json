@@ -2,6 +2,7 @@
   "name": "batteryfly",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
+  "homepage": "https://krisenkovs.github.io/BatteryFly",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -33,6 +34,7 @@
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^5.30.0",
     "eslint": "^8.18.0",
+    "gh-pages": "^4.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.6.0",
