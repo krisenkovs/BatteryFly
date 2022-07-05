@@ -1,0 +1,31 @@
+{
+  "files": {
+    "app.js": "/BatteryFly/static/js/app.a8afd263.chunk.js",
+    "app.js.map": "/BatteryFly/static/js/app.a8afd263.chunk.js.map",
+    "runtime~app.js": "/BatteryFly/static/js/runtime~app.ffe74f25.js",
+    "runtime~app.js.map": "/BatteryFly/static/js/runtime~app.ffe74f25.js.map",
+    "static/js/2.c87ce27f.chunk.js": "/BatteryFly/static/js/2.c87ce27f.chunk.js",
+    "static/js/2.c87ce27f.chunk.js.map": "/BatteryFly/static/js/2.c87ce27f.chunk.js.map",
+    "fonts/Mulish-Black.ttf": "/BatteryFly/./fonts/Mulish-Black.ttf",
+    "fonts/Mulish-Bold.ttf": "/BatteryFly/./fonts/Mulish-Bold.ttf",
+    "fonts/Mulish-ExtraBold.ttf": "/BatteryFly/./fonts/Mulish-ExtraBold.ttf",
+    "fonts/Mulish-ExtraLight.ttf": "/BatteryFly/./fonts/Mulish-ExtraLight.ttf",
+    "fonts/Mulish-Light.ttf": "/BatteryFly/./fonts/Mulish-Light.ttf",
+    "fonts/Mulish-Medium.ttf": "/BatteryFly/./fonts/Mulish-Medium.ttf",
+    "fonts/Mulish-Regular.ttf": "/BatteryFly/./fonts/Mulish-Regular.ttf",
+    "fonts/Mulish-SemiBold.ttf": "/BatteryFly/./fonts/Mulish-SemiBold.ttf",
+    "Splash.png": "/BatteryFly/Splash.png",
+    "favicon-16.png": "/BatteryFly/favicon-16.png",
+    "favicon-32.png": "/BatteryFly/favicon-32.png",
+    "favicon.ico": "/BatteryFly/favicon.ico",
+    "index.html": "/BatteryFly/index.html",
+    "manifest.json": "/BatteryFly/manifest.json",
+    "serve.json": "/BatteryFly/serve.json",
+    "static/js/2.c87ce27f.chunk.js.LICENSE.txt": "/BatteryFly/static/js/2.c87ce27f.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime~app.ffe74f25.js",
+    "static/js/2.c87ce27f.chunk.js",
+    "static/js/app.a8afd263.chunk.js"
+  ]
+}
