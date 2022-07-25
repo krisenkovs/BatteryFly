@@ -1,10 +1,11 @@
-import { Text, View, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
-import Header from './Header';
-import SlidersIcon from './SlidersIcon';
-import BellIcon from './BellIcon';
-import CaretRightIcon from './CaretRightIcon';
-import { Route, Routes, useNavigate } from 'react-router-native';
-import Help from './Help';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Header from '../components/Header';
+import SlidersIcon from '../icons/SlidersIcon';
+import BellIcon from '../icons/BellIcon';
+import CaretRightIcon from '../icons/CaretRightIcon';
+import { NativeStackScreenProps } from 'react-native-screens/native-stack';
+import { RootStackParamList } from '../../App';
+import { ROUTES } from '@constants';
 
 const DATA = [
   {
@@ -29,19 +30,19 @@ const DATA = [
   },
 ];
 
-function ProfileHome() {
-  const navigate = useNavigate();
-
-  function handlePress(id: string) {
-    navigate('help');
+export default function Profile({ navigation }: NativeStackScreenProps<RootStackParamList>) {
+  function handlePress() {
+    navigation.navigate(ROUTES.HELP);
   }
 
   return (
     <View>
-      <Header title="Профиль" showBackButton />
+      <Header title="Профиль" showBackButton navigation={navigation} />
       <View style={styles.content}>
         <View style={styles.user}>
-          <View style={styles.userAvatar} />
+          <View style={styles.userAvatarContainer}>
+            <View style={[styles.userAvatar]} />
+          </View>
           <TouchableOpacity style={styles.userButtonLeft}>
             <SlidersIcon />
           </TouchableOpacity>
@@ -55,7 +56,7 @@ function ProfileHome() {
           <FlatList
             data={DATA}
             renderItem={({ item }) => (
-              <TouchableOpacity style={styles.listItem} onPress={() => handlePress(item?.id)}>
+              <TouchableOpacity style={styles.listItem} onPress={() => handlePress()}>
                 <Text style={styles.listItemTitle}>{item.title}</Text>
                 <CaretRightIcon />
               </TouchableOpacity>
@@ -65,15 +66,6 @@ function ProfileHome() {
         </View>
       </View>
     </View>
-  );
-}
-
-export default function Profile() {
-  return (
-    <Routes>
-      <Route index element={<ProfileHome />} />
-      <Route path="help" element={<Help />} />
-    </Routes>
   );
 }
 
@@ -89,11 +81,18 @@ const styles = StyleSheet.create({
     padding: 24,
     height: 135,
     justifyContent: 'flex-end',
+    position: 'relative',
   },
-  userAvatar: {
+  userAvatarContainer: {
     position: 'absolute',
     top: -50,
-    left: 'calc(100%/2 - 50px)',
+    left: 90,
+    height: 100,
+    right: 90,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  userAvatar: {
     height: 100,
     width: 100,
     borderRadius: 100,
@@ -106,6 +105,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     borderRadius: 40,
+    fontSize: 24,
     backgroundColor: '#D2E4FF',
     alignItems: 'center',
     justifyContent: 'center',
@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
     width: 40,
     borderRadius: 40,
     backgroundColor: '#D2E4FF',
+    fontSize: 24,
     alignItems: 'center',
     justifyContent: 'center',
   },

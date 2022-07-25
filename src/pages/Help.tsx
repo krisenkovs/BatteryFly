@@ -1,15 +1,17 @@
 import { Text, View, StyleSheet, Linking, TouchableWithoutFeedback } from 'react-native';
-import Header from './Header';
-import ChatIcon from './ChatIcon';
+import Header from '../components/Header';
+import ChatIcon from '../icons/ChatIcon';
+import { NativeStackScreenProps } from 'react-native-screens/native-stack';
+import { RootStackParamList } from '../../App';
 
-export default function Help() {
+export default function Help({ navigation }: NativeStackScreenProps<RootStackParamList>) {
   function handleLink() {
     Linking.openURL('mailto:support@batteryfly.by');
   }
 
   return (
     <View style={styles.container}>
-      <Header title="Помощь" showBackButton />
+      <Header title="Помощь" showBackButton navigation={navigation} />
       <View style={styles.content}>
         <ChatIcon />
         <Text style={styles.text}>

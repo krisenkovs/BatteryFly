@@ -1,0 +1,10 @@
+export enum COLORS {
+  PALE_BLUE = '#EEF5FF',
+  BLUE = '#005EEB',
+  LIGHT_BLUE = '#D2E4FF',
+  BLACK = '#2C2E31',
+  LIGHT_BLACK = '#656A71',
+  WHITE = '#FFFFFF',
+  GREY = '#F0F0F0',
+  GREEN = '#3BC561',
+}

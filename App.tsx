@@ -1,11 +1,39 @@
-import Profile from './Profile';
-import { NativeRouter, Route, Routes } from 'react-router-native';
-import Home from './Home';
 import { useFonts } from 'expo-font';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { StatusBar } from 'expo-status-bar';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { AppRegistry, StatusBar } from 'react-native';
+import { COLORS, ROUTES } from '@constants';
+import Home from './src/pages/Home';
+import Profile from './src/pages/Profile';
+import MainPage from './src/pages/MainPage';
+import Help from './src/pages/Help';
+import ChargePage from './src/pages/ChargePage';
+import PayErrorPage from './src/pages/PayErrorPage';
+import { PayPage } from './src/pages/PayPage';
+import { ScannerPage } from './src/pages/ScannerPage';
+import { observer } from 'mobx-react';
+import { useEffect } from 'react';
+import { StationPage } from './src/pages/StationPage';
+import { store } from './store';
 
-export default function App() {
+export type RootStackParamList = {
+  [ROUTES.HOME]: undefined;
+  [ROUTES.PROFILE]: undefined;
+  [ROUTES.HELP]: undefined;
+  [ROUTES.MAIN]: undefined;
+  [ROUTES.PAY]: {
+    id?: number;
+    address?: string;
+  };
+  [ROUTES.CHARGE]: undefined;
+  [ROUTES.PAY_ERROR]: undefined;
+  [ROUTES.SCANNER]: undefined;
+  [ROUTES.STATION]: { id: number };
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
+
+const App = observer(() => {
   let [fontsLoaded] = useFonts({
     'Mulish-200': require('./assets/Mulish-ExtraLight.ttf'),
     'Mulish-300': require('./assets/Mulish-Light.ttf'),
@@ -17,17 +45,58 @@ export default function App() {
     'Mulish-900': require('./assets/Mulish-Black.ttf'),
   });
 
-  if (!fontsLoaded) {
+  useEffect(() => {
+    store.loadItems();
+  }, []);
+
+  if (!fontsLoaded || store.itemsPromise?.pending) {
     return null;
   }
 
   return (
-    <NativeRouter>
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="profile/*" element={<Profile />} />
-      </Routes>
-      <StatusBar hidden />
-    </NativeRouter>
+    <NavigationContainer>
+      <StatusBar />
+      <Stack.Navigator
+        initialRouteName={ROUTES.MAIN}
+        screenOptions={{
+          header: () => null,
+          headerShown: false,
+          cardStyle: {
+            backgroundColor: COLORS.WHITE,
+            overflow: 'hidden',
+          },
+        }}
+      >
+        <Stack.Screen name={ROUTES.HOME} component={Home} />
+        <Stack.Screen name={ROUTES.PROFILE} component={Profile} />
+        <Stack.Screen name={ROUTES.HELP} component={Help} />
+        <Stack.Screen name={ROUTES.MAIN} component={MainPage} options={{ title: 'Главная' }} />
+        <Stack.Screen name={ROUTES.CHARGE} component={ChargePage} options={{ title: 'Зарядка' }} />
+        <Stack.Screen
+          name={ROUTES.PAY_ERROR}
+          component={PayErrorPage}
+          options={{ title: 'Ошибка' }}
+        />
+        <Stack.Screen
+          name={ROUTES.PAY}
+          component={PayPage}
+          options={{ title: 'Начните зарядку' }}
+        />
+        <Stack.Screen
+          name={ROUTES.SCANNER}
+          component={ScannerPage}
+          options={{ title: 'Отсканируйте QR код' }}
+        />
+        <Stack.Screen
+          name={ROUTES.STATION}
+          component={StationPage}
+          options={{ title: 'Выберите колонку' }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+});
+
+export default App;
+
+AppRegistry.registerComponent('batteryfly', () => App);
