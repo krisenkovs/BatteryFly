@@ -4,6 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { AppRegistry, StatusBar } from 'react-native';
 import { COLORS, ROUTES } from '@constants';
 import Home from './src/pages/Home';
+import { PaymentPage } from './src/pages/PaymentPage';
 import Profile from './src/pages/Profile';
 import MainPage from './src/pages/MainPage';
 import Help from './src/pages/Help';
@@ -22,13 +23,15 @@ export type RootStackParamList = {
   [ROUTES.HELP]: undefined;
   [ROUTES.MAIN]: undefined;
   [ROUTES.PAY]: {
-    id?: number;
-    address?: string;
+    id: number;
+    sum?: string;
+    power?: string;
   };
   [ROUTES.CHARGE]: undefined;
   [ROUTES.PAY_ERROR]: undefined;
   [ROUTES.SCANNER]: undefined;
   [ROUTES.STATION]: { id: number };
+  [ROUTES.PAYMENT]: { id: number };
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -91,6 +94,11 @@ const App = observer(() => {
           name={ROUTES.STATION}
           component={StationPage}
           options={{ title: 'Выберите колонку' }}
+        />
+        <Stack.Screen
+          name={ROUTES.PAYMENT}
+          component={PaymentPage}
+          options={{ title: 'Цена и киловаты' }}
         />
       </Stack.Navigator>
     </NavigationContainer>

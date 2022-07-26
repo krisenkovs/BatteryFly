@@ -8,4 +8,5 @@ export enum ROUTES {
   PAY_ERROR = 'payError',
   SCANNER = 'scanner',
   STATION = 'station',
+  PAYMENT = 'payment',
 }

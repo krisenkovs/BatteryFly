@@ -18,6 +18,8 @@ export const PayPage = observer(function PayPage({
   route,
 }: NativeStackScreenProps<RootStackParamList>) {
   const id = (route.params as RootStackParamList[ROUTES.PAY])?.id;
+  const sum = (route.params as RootStackParamList[ROUTES.PAY])?.sum;
+  const power = (route.params as RootStackParamList[ROUTES.PAY])?.power;
   const station = useMemo(() => {
     return mainStore?.itemsPromise?.value?.content?.find((item) => item?.id === id);
   }, [id]);
@@ -57,8 +59,8 @@ export const PayPage = observer(function PayPage({
         <DescriptionField label="Адрес" value={station?.address} />
         <DescriptionField label="№ колонки" value={station?.id?.toString()} />
         <DescriptionField label="Тип разъема" value="CCS" />
-        <DescriptionField label="Киловаты" value="100" />
-        <DescriptionField label="BYN" value="15" />
+        <DescriptionField label="Киловаты" value={power} />
+        <DescriptionField label="BYN" value={sum} />
         <DescriptionField label="Способ оплаты" value="Visa •••• 4320 " />
       </Box>
       <Box flex={1} />

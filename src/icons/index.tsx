@@ -6,3 +6,5 @@ export * from './CrossIcon';
 export * from './SlidersIcon';
 export * from './UserIcon';
 export * from './CSSConnector';
+export * from './CoinIcon';
+export * from './LightIcon';

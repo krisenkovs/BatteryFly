@@ -12,13 +12,13 @@ import { Connector } from './Connector';
 
 export const StationPage = observer(
   ({ navigation, route }: NativeStackScreenProps<RootStackParamList>) => {
-    const id = (route.params as RootStackParamList[ROUTES.PAY])?.id;
+    const id = (route.params as RootStackParamList[ROUTES.PAY]).id;
     const station = useMemo(() => {
       return store?.itemsPromise?.value?.content?.find((item) => item?.id === id);
     }, [id]);
 
     function handlePress() {
-      navigation.navigate(ROUTES.PAY, { id });
+      navigation.navigate(ROUTES.PAYMENT, { id });
     }
 
     return (
