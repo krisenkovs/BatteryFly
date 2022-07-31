@@ -4,6 +4,7 @@ import { Typography } from '@components/Typography';
 import { COLORS, ROUTES } from '@constants';
 import { observer } from 'mobx-react';
 import React, { useMemo } from 'react';
+import { StatusBar } from 'react-native';
 import { NativeStackScreenProps } from 'react-native-screens/native-stack';
 import { RootStackParamList } from '../../../App';
 import { store } from '../../../store';
@@ -23,6 +24,7 @@ export const StationPage = observer(
 
     return (
       <Box flex={1}>
+        <StatusBar backgroundColor={COLORS.LIGHT_BLUE} />
         <Header
           navigation={navigation}
           showProfileButton={false}

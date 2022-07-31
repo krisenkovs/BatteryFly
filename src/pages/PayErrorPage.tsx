@@ -1,4 +1,6 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { COLORS } from '@constants';
+import React from 'react';
+import { StyleSheet, Text, View, Image, StatusBar } from 'react-native';
 
 import { NativeStackScreenProps } from 'react-native-screens/native-stack';
 import { RootStackParamList } from '../../App';
@@ -12,18 +14,22 @@ export default function PayErrorPage({ navigation }: NativeStackScreenProps<Root
   }
 
   return (
-    <View style={styles.container}>
-      <View style={{ flex: 1 }} />
-      <Text style={styles.title}>Оплата не прошла</Text>
-      <View style={styles.imageContainer}>
-        <Image style={styles.image} source={error} />
+    <>
+      <StatusBar backgroundColor={COLORS.PALE_BLUE} />
+
+      <View style={styles.container}>
+        <View style={{ flex: 1 }} />
+        <Text style={styles.title}>Оплата не прошла</Text>
+        <View style={styles.imageContainer}>
+          <Image style={styles.image} source={error} />
+        </View>
+        <Text style={styles.info}>
+          Бывает! Попробуй ещё раз, возможно не хватает средств на карте или ещё что-то
+        </Text>
+        <View style={{ flex: 1 }} />
+        <BlueButton text="Попробовать снова" onPress={handleTry} />
       </View>
-      <Text style={styles.info}>
-        Бывает! Попробуй ещё раз, возможно не хватает средств на карте или ещё что-то
-      </Text>
-      <View style={{ flex: 1 }} />
-      <BlueButton text="Попробовать снова" onPress={handleTry} />
-    </View>
+    </>
   );
 }
 

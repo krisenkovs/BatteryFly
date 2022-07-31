@@ -1,3 +1,4 @@
+import { Box } from '@components/Box';
 import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -13,8 +14,9 @@ import PayErrorPage from './src/pages/PayErrorPage';
 import { PayPage } from './src/pages/PayPage';
 import { ScannerPage } from './src/pages/ScannerPage';
 import { observer } from 'mobx-react';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { StationPage } from './src/pages/StationPage';
+import * as SplashScreen from 'expo-splash-screen';
 import { store } from './store';
 
 export type RootStackParamList = {
@@ -36,6 +38,8 @@ export type RootStackParamList = {
 
 const Stack = createStackNavigator<RootStackParamList>();
 
+SplashScreen.preventAutoHideAsync();
+
 const App = observer(() => {
   let [fontsLoaded] = useFonts({
     'Mulish-200': require('./assets/Mulish-ExtraLight.ttf'),
@@ -52,56 +56,68 @@ const App = observer(() => {
     store.loadItems();
   }, []);
 
-  if (!fontsLoaded || store.itemsPromise?.pending) {
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
     return null;
   }
 
   return (
-    <NavigationContainer>
-      <StatusBar />
-      <Stack.Navigator
-        initialRouteName={ROUTES.MAIN}
-        screenOptions={{
-          header: () => null,
-          headerShown: false,
-          cardStyle: {
-            backgroundColor: COLORS.WHITE,
-            overflow: 'hidden',
-          },
-        }}
-      >
-        <Stack.Screen name={ROUTES.HOME} component={Home} />
-        <Stack.Screen name={ROUTES.PROFILE} component={Profile} />
-        <Stack.Screen name={ROUTES.HELP} component={Help} />
-        <Stack.Screen name={ROUTES.MAIN} component={MainPage} options={{ title: 'Главная' }} />
-        <Stack.Screen name={ROUTES.CHARGE} component={ChargePage} options={{ title: 'Зарядка' }} />
-        <Stack.Screen
-          name={ROUTES.PAY_ERROR}
-          component={PayErrorPage}
-          options={{ title: 'Ошибка' }}
-        />
-        <Stack.Screen
-          name={ROUTES.PAY}
-          component={PayPage}
-          options={{ title: 'Начните зарядку' }}
-        />
-        <Stack.Screen
-          name={ROUTES.SCANNER}
-          component={ScannerPage}
-          options={{ title: 'Отсканируйте QR код' }}
-        />
-        <Stack.Screen
-          name={ROUTES.STATION}
-          component={StationPage}
-          options={{ title: 'Выберите колонку' }}
-        />
-        <Stack.Screen
-          name={ROUTES.PAYMENT}
-          component={PaymentPage}
-          options={{ title: 'Цена и киловаты' }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Box onLayout={onLayoutRootView} flex={1}>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName={ROUTES.CHARGE}
+          screenOptions={{
+            header: () => null,
+            headerShown: false,
+            animationEnabled: false,
+            cardStyle: {
+              backgroundColor: COLORS.WHITE,
+              overflow: 'hidden',
+            },
+          }}
+        >
+          <Stack.Screen name={ROUTES.HOME} component={Home} />
+          <Stack.Screen name={ROUTES.PROFILE} component={Profile} />
+          <Stack.Screen name={ROUTES.HELP} component={Help} />
+          <Stack.Screen name={ROUTES.MAIN} component={MainPage} options={{ title: 'Главная' }} />
+          <Stack.Screen
+            name={ROUTES.CHARGE}
+            component={ChargePage}
+            options={{ title: 'Зарядка' }}
+          />
+          <Stack.Screen
+            name={ROUTES.PAY_ERROR}
+            component={PayErrorPage}
+            options={{ title: 'Ошибка' }}
+          />
+          <Stack.Screen
+            name={ROUTES.PAY}
+            component={PayPage}
+            options={{ title: 'Начните зарядку' }}
+          />
+          <Stack.Screen
+            name={ROUTES.SCANNER}
+            component={ScannerPage}
+            options={{ title: 'Отсканируйте QR код' }}
+          />
+          <Stack.Screen
+            name={ROUTES.STATION}
+            component={StationPage}
+            options={{ title: 'Выберите колонку' }}
+          />
+          <Stack.Screen
+            name={ROUTES.PAYMENT}
+            component={PaymentPage}
+            options={{ title: 'Цена и киловаты' }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Box>
   );
 });
 

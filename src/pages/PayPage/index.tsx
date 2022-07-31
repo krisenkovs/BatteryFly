@@ -7,10 +7,10 @@ import { DescriptionField } from './DescriptionField';
 import { store } from './store';
 import { store as mainStore } from '../../../store';
 import { observer } from 'mobx-react';
-import { useEffect, useMemo } from 'react';
-import { Image } from 'react-native';
+import React, { useEffect, useMemo } from 'react';
+import { ImageBackground, StatusBar } from 'react-native';
 import { BlueButton } from '@components/Button';
-import { ROUTES } from '@constants';
+import { COLORS, ROUTES } from '@constants';
 import { Box } from '@components/Box';
 
 export const PayPage = observer(function PayPage({
@@ -46,6 +46,7 @@ export const PayPage = observer(function PayPage({
 
   return (
     <Box flex={1}>
+      <StatusBar backgroundColor={COLORS.LIGHT_BLUE} />
       <Header
         title="Начните зарядку"
         showBackButton
@@ -53,7 +54,12 @@ export const PayPage = observer(function PayPage({
         navigation={navigation}
       />
       <Box flex={1} />
-      <Image source={WavesFly} resizeMethod="auto" style={{ height: 98 }} />
+      <ImageBackground
+        source={WavesFly}
+        resizeMethod="auto"
+        style={{ flexDirection: 'row', height: 110 }}
+      />
+
       <Box flex={1} />
       <Box paddingLeft={16} paddingRight={16}>
         <DescriptionField label="Адрес" value={station?.address} />

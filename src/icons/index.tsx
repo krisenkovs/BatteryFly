@@ -6,5 +6,5 @@ export * from './CrossIcon';
 export * from './SlidersIcon';
 export * from './UserIcon';
 export * from './CSSConnector';
-export * from './CoinIcon';
+export { default as CoinIcon } from './CoinIcon';
 export * from './LightIcon';

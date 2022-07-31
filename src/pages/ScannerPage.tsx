@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator } from 'react-native';
+import { ActivityIndicator, StatusBar } from 'react-native';
 import Header from '../components/Header';
 import { NativeStackScreenProps } from 'react-native-screens/native-stack';
 import { RootStackParamList } from '../../App';
 import { Camera, CameraType } from 'expo-camera';
 import { BarCodeScanner, PermissionStatus } from 'expo-barcode-scanner';
 import { BarCodeScanningResult } from 'expo-camera/build/Camera.types';
-import { Box } from '../components/Box';
-import { COLORS, ROUTES } from '../constants';
+import { Box } from '@components/Box';
+import { COLORS, ROUTES } from '@constants';
 import { observer } from 'mobx-react';
 import { store } from '../../store';
 import Svg, { Path } from 'react-native-svg';
@@ -25,11 +25,11 @@ export const ScannerPage = observer(
 
     function handleCode(scanningResult: BarCodeScanningResult) {
       const item = store.itemsPromise?.value?.content?.find(
-        (item) => item.id?.toString() === scanningResult?.data
+        (item) => item.linkQr === scanningResult?.data
       );
 
       if (item) {
-        navigation.navigate(ROUTES.PAY, { id: item?.id, address: item?.address });
+        navigation.navigate(ROUTES.PAY, { id: item?.id });
       } else {
         navigation.navigate(ROUTES.MAIN);
       }
@@ -62,6 +62,7 @@ export const ScannerPage = observer(
         }}
         onBarCodeScanned={handleCode}
       >
+        <StatusBar backgroundColor={COLORS.LIGHT_BLUE} />
         <Header
           navigation={navigation}
           showProfileButton={false}

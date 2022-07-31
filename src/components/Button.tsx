@@ -20,7 +20,7 @@ type Props = {
 export function BlueButton({ text, loading, onPress, style, disabled = false }: Props) {
   return (
     <Box pointerEvents={disabled ? 'none' : 'auto'}>
-      <TouchableOpacity disabled={loading}>
+      <TouchableOpacity disabled={loading} onPress={onPress}>
         <Box
           height={48}
           justifyContent="center"
@@ -32,13 +32,7 @@ export function BlueButton({ text, loading, onPress, style, disabled = false }: 
           {loading ? (
             <ActivityIndicator color={COLORS.WHITE} />
           ) : (
-            <Typography
-              weight={700}
-              lineHeight={23}
-              size={18}
-              color={COLORS.WHITE}
-              onPress={onPress}
-            >
+            <Typography weight={700} lineHeight={23} size={18} color={COLORS.WHITE}>
               {text}
             </Typography>
           )}
